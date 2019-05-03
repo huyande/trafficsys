@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<#assign ctx=request.contextPath />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>交通违章处罚系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ctx}/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="${ctx}/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="${ctx}/css/style.css" rel="stylesheet">
+    <link href="${ctx}/css/style-responsive.css" rel="stylesheet" />
+
+</head>
+
+  <body class="login-body">
+
+    <div class="container">
+
+      <form class="form-signin" id="form" action="/admin/login" method="post"> 
+        <h2 class="form-signin-heading">登录</h2>
+        <div class="login-wrap">
+            <input type="text" class="form-control" name="username" placeholder="Username" autofocus>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            <button class="btn btn-lg btn-login btn-block" type="button">点击登录</button>
+            <span class="errorTip"></span>
+        </div>
+      </form>
+
+    </div>
+
+    <script src="${ctx}/js/jquery.js"></script>
+    <script src="${ctx}/js/bootstrap.min.js"></script>
+	<script type="application/x-javascript">
+		 $('.btn-login').click(function(){
+			 $.ajax({
+		            url: '/admin/login',
+		            type: 'POST',
+		            data: $("#form").serialize(),
+		            success: function (data) {
+		            	//alert(data);
+		            	if(data.status=='ok'){
+		            		window.location.href='/admin/trafficView'
+		            	}else if(data.status=='error'){
+		            		
+		            		var errorMsg = data.msg;
+		            		//alert(errorMsg);
+		            		$(".errorTip").html(errorMsg);
+		            	}
+		                
+		            }
+		        });
+		 })
+	</script>
+
+  </body>
+</html>

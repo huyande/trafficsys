@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.traffic.dao.TrafficMapper" >
+
+    <resultMap id="BaseResultMap" type="com.traffic.bean.Traffic" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="licenseId" property="licenseid" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="decodes" property="decodes" jdbcType="INTEGER" />
+        <result column="phoneNumber" property="phonenumber" jdbcType="VARCHAR" />
+        <result column="licencePlate" property="licenceplate" jdbcType="VARCHAR" />
+        <result column="modelType" property="modeltype" jdbcType="VARCHAR" />
+        <result column="factoryName" property="factoryname" jdbcType="VARCHAR" />
+        <result column="expiringDate" property="expiringdate" jdbcType="VARCHAR" />
+        <result column="violationDate" property="violationdate" jdbcType="VARCHAR" />
+        <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+        <result column="violationAddress" property="violationaddress" jdbcType="VARCHAR" />
+        <result column="violationContent" property="violationcontent" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, licenseId, address, decodes, phoneNumber, licencePlate, modelType, factoryName, 
+        expiringDate, violationDate, createTime, violationAddress, violationContent
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from traffic
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findAllTraffic" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from traffic order by createTime
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from traffic
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.traffic.bean.Traffic"  useGeneratedKeys="true" keyProperty="id">
+        insert into traffic (id, name, licenseId, 
+            address, decodes, phoneNumber, 
+            licencePlate, modelType, factoryName, 
+            expiringDate, violationDate, createTime, 
+            violationAddress, violationContent)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{licenseid,jdbcType=INTEGER}, 
+            #{address,jdbcType=VARCHAR}, #{decodes,jdbcType=INTEGER}, #{phonenumber,jdbcType=VARCHAR}, 
+            #{licenceplate,jdbcType=VARCHAR}, #{modeltype,jdbcType=VARCHAR}, #{factoryname,jdbcType=VARCHAR}, 
+            #{expiringdate,jdbcType=VARCHAR}, #{violationdate,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+            #{violationaddress,jdbcType=VARCHAR}, #{violationcontent,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.traffic.bean.Traffic" >
+        insert into traffic
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="licenseid != null" >
+                licenseId,
+            </if>
+            <if test="address != null" >
+                address,
+            </if>
+            <if test="decodes != null" >
+                decodes,
+            </if>
+            <if test="phonenumber != null" >
+                phoneNumber,
+            </if>
+            <if test="licenceplate != null" >
+                licencePlate,
+            </if>
+            <if test="modeltype != null" >
+                modelType,
+            </if>
+            <if test="factoryname != null" >
+                factoryName,
+            </if>
+            <if test="expiringdate != null" >
+                expiringDate,
+            </if>
+            <if test="violationdate != null" >
+                violationDate,
+            </if>
+            <if test="createtime != null" >
+                createTime,
+            </if>
+            <if test="violationaddress != null" >
+                violationAddress,
+            </if>
+            <if test="violationcontent != null" >
+                violationContent,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="licenseid != null" >
+                #{licenseid,jdbcType=INTEGER},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="decodes != null" >
+                #{decodes,jdbcType=INTEGER},
+            </if>
+            <if test="phonenumber != null" >
+                #{phonenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="licenceplate != null" >
+                #{licenceplate,jdbcType=VARCHAR},
+            </if>
+            <if test="modeltype != null" >
+                #{modeltype,jdbcType=VARCHAR},
+            </if>
+            <if test="factoryname != null" >
+                #{factoryname,jdbcType=VARCHAR},
+            </if>
+            <if test="expiringdate != null" >
+                #{expiringdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="violationdate != null" >
+                #{violationdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createtime != null" >
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="violationaddress != null" >
+                #{violationaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="violationcontent != null" >
+                #{violationcontent,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.traffic.bean.Traffic" >
+        update traffic
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="licenseid != null" >
+                licenseId = #{licenseid,jdbcType=INTEGER},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="decodes != null" >
+                decodes = #{decodes,jdbcType=INTEGER},
+            </if>
+            <if test="phonenumber != null" >
+                phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="licenceplate != null" >
+                licencePlate = #{licenceplate,jdbcType=VARCHAR},
+            </if>
+            <if test="modeltype != null" >
+                modelType = #{modeltype,jdbcType=VARCHAR},
+            </if>
+            <if test="factoryname != null" >
+                factoryName = #{factoryname,jdbcType=VARCHAR},
+            </if>
+            <if test="expiringdate != null" >
+                expiringDate = #{expiringdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="violationdate != null" >
+                violationDate = #{violationdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createtime != null" >
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="violationaddress != null" >
+                violationAddress = #{violationaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="violationcontent != null" >
+                violationContent = #{violationcontent,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.traffic.bean.Traffic" >
+        update traffic
+        set name = #{name,jdbcType=VARCHAR},
+            licenseId = #{licenseid,jdbcType=INTEGER},
+            address = #{address,jdbcType=VARCHAR},
+            decodes = #{decodes,jdbcType=INTEGER},
+            phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+            licencePlate = #{licenceplate,jdbcType=VARCHAR},
+            modelType = #{modeltype,jdbcType=VARCHAR},
+            factoryName = #{factoryname,jdbcType=VARCHAR},
+            expiringDate = #{expiringdate,jdbcType=TIMESTAMP},
+            violationDate = #{violationdate,jdbcType=TIMESTAMP},
+            createTime = #{createtime,jdbcType=TIMESTAMP},
+            violationAddress = #{violationaddress,jdbcType=VARCHAR},
+            violationContent = #{violationcontent,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

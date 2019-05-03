@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.traffic.dao.PunishmentwayMapper" >
+
+    <resultMap id="BaseResultMap" type="com.traffic.bean.Punishmentway" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="trafficId" property="trafficid" jdbcType="INTEGER" />
+        <result column="punishmentType" property="punishmenttype" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, trafficId, punishmentType
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from punishmentway
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="findPunishmentByTrafficId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from punishmentway
+        where trafficId = #{trafficId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from punishmentway
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.traffic.bean.Punishmentway" >
+        insert into punishmentway (id, trafficId, punishmentType
+            )
+        values (#{id,jdbcType=INTEGER}, #{trafficid,jdbcType=INTEGER}, #{punishmenttype,jdbcType=INTEGER}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.traffic.bean.Punishmentway" >
+        insert into punishmentway
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="trafficid != null" >
+                trafficId,
+            </if>
+            <if test="punishmenttype != null" >
+                punishmentType,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="trafficid != null" >
+                #{trafficid,jdbcType=INTEGER},
+            </if>
+            <if test="punishmenttype != null" >
+                #{punishmenttype,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.traffic.bean.Punishmentway" >
+        update punishmentway
+        <set >
+            <if test="trafficid != null" >
+                trafficId = #{trafficid,jdbcType=INTEGER},
+            </if>
+            <if test="punishmenttype != null" >
+                punishmentType = #{punishmenttype,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.traffic.bean.Punishmentway" >
+        update punishmentway
+        set trafficId = #{trafficid,jdbcType=INTEGER},
+            punishmentType = #{punishmenttype,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
